@@ -9,7 +9,7 @@ namespace Randomizer
     {
         public override void OnInitializeMelon()
         {
-            Translator.Randomize();
+
         }
     }
 }

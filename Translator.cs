@@ -111,11 +111,12 @@ namespace Randomizer
             return res;
         }
 
-        public static void Randomize()
+        public static void Randomize(int seed)
         {
+            MelonLogger.Msg($"Using seed {seed}");
             objMap.Clear();
             MelonLogger.Msg("Randomizing");
-            Random rand = new Random();
+            Random rand = new Random(seed);
             List<Mapvania.Object> equipsSrc = GenObjectPool();
             List<Mapvania.Object> equipsShuffled = equipsSrc
                 .OrderBy(x => rand.Next())

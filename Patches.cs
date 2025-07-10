@@ -25,7 +25,7 @@ namespace Randomizer
                 return;
             }
 
-            if(!record.flags.ContainsKey(Translator.randomizerSeedAFlag) || !record.flags.ContainsKey(Translator.randomizerSeedBFlag))
+            if(!record.flags.ContainsKey(Translator.randomizerSeedUpperFlag) || !record.flags.ContainsKey(Translator.randomizerSeedLowerFlag))
             {
                 // No stored seed, must generate
                 MelonLogger.Msg("Generating a new seed");
@@ -33,20 +33,19 @@ namespace Randomizer
 
                 // Split seed int 2 halves to avoid floating point conversion error
                 int newSeed = rand.Next();
-                int seedA = newSeed & 0xffff;
-                int seedB = (int) (newSeed & 0xffff0000) >> 8;
+                int seedUpper = (int) (newSeed & 0xffff0000) >> 16;
+                int seedLower = newSeed & 0xffff;
 
-                record.flags[Translator.randomizerSeedAFlag] = seedA;
-                record.flags[Translator.randomizerSeedBFlag] = seedB;
+                record.flags[Translator.randomizerSeedUpperFlag] = seedUpper;
+                record.flags[Translator.randomizerSeedLowerFlag] = seedLower;
             }
             else
             {
                 MelonLogger.Msg("Found seed in game record");
             }
-            int seed = record.flags[Translator.randomizerSeedAFlag] | (record.flags[Translator.randomizerSeedAFlag] << 8);
+            int seed = (record.flags[Translator.randomizerSeedUpperFlag] << 8) | record.flags[Translator.randomizerSeedLowerFlag];
             MelonLogger.Msg($"seed from flags = {seed}");
             Translator.Randomize(seed);
         }
-
     }
 }

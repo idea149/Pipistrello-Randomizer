@@ -58,8 +58,8 @@ namespace Randomizer
     public class Translator
     {
         public static readonly string randomizerEnabledFlag = "g:randomizer:enabled";
-        public static readonly string randomizerSeedAFlag = "g:randomizer:seedA";
-        public static readonly string randomizerSeedBFlag = "g:randomizer:seedB";
+        public static readonly string randomizerSeedUpperFlag = "g:randomizer:seedUpper";
+        public static readonly string randomizerSeedLowerFlag = "g:randomizer:seedLower";
 
         // Object translation map
         public static Dictionary<ObjectId, Mapvania.Object> objMap = new Dictionary<ObjectId, Mapvania.Object>();

@@ -25,13 +25,16 @@ namespace Randomizer
                 return;
             }
 
-            //BUG: Seed is incorrectly read from file after first save + load.
             if(!record.flags.ContainsKey(Translator.randomizerSeedFlag))
             {
                 // No stored seed, must generate
                 MelonLogger.Msg("Generating a new seed");
                 Random rand = new Random();
-                record.flags[Translator.randomizerSeedFlag] = rand.Next();
+
+                // Induce floating point conversion error that file save/load will encounter
+                float seedFloat = rand.Next();
+                int seedInt = (int) seedFloat;
+                record.flags[Translator.randomizerSeedFlag] = seedInt;
             }
             else
             {
